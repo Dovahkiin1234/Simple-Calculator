@@ -5,8 +5,8 @@
 
 using namespace std;
 
+// This code defines an enum named Actions that assigns integer values to named mathematical operations, such as addition, subtraction, multiplication, division, exponentiation, and square root.
 enum Actions {
-    // This code defines an enum named Actions that assigns integer values to named mathematical operations, such as addition, subtraction, multiplication, division, exponentiation, and square root.
     Add = 1,
     Subtract = 2,
     Multiplicate = 3,
@@ -15,7 +15,7 @@ enum Actions {
     SquareRoot = 6
 };
 
-// This code defines a struct named DoMath that contains methods for performing addition, subtraction, multiplication, division, and exponentiation, and prints the result of each operation to the console.
+// This code defines a struct named DoMath that contains methods for performing addition, subtraction, multiplication, division, exponentiation and square root, and prints the result of each operation to the console.
 struct DoMath {
     static void Addition(double& value1, double& value2) {
         auto answer = value1 + value2;
@@ -51,7 +51,7 @@ struct DoMath {
         // https://cplusplus.com/reference/cmath/sqrt/
         // for negative square root
         if (value1 < 0) {
-            complex<double> answer = sqrt(complex<double>(value1));
+            complex<double> answer = sqrt(complex<double>(value1)); // Using complex<double> to get the negative value. If you use auto or double here you will get nan.
             cout << "Answer is: " << answer << endl;
         } else {
             auto answer = sqrt(value1);
