@@ -60,38 +60,30 @@ struct DoMath {
     }
 };
 
-int main() {
-    // Our input values.
-    double value1;
-    double value2;
+// Getting the input number for values.
+int getNumber(const string& prompt) {
+    int number;
+    while (true) {
+        cout << prompt;
+        cin >> number;
+        if (cin.fail()) {
+            cout << "Enter a valid digit!" << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else break;
+    }
+    return number;
+}
 
+int main() {
     // Main loop.
     while (true) {
-        while (true) { // Using while (true) to make a simple check.
-            cout << "Enter the first value: ";
-            cin >> value1;
-            if (cin.fail()) { // Checks if user inputs another value instead of a digit.
-                cout << "Enter a valid value!" << endl;
-                cin.clear(); // Clears the buffer
-            }
-            else {
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // if the user gives 2 values at once just checks for the first buffer
-                break;
-            }
-        }
-        while (true) { // Using while (true) to make a simple check.
-            cout << "Enter the second value: ";
-            cin >> value2;
-            if (cin.fail()) { // Checks if user inputs another value instead of a digit.
-                cout << "Enter a valid value!" << endl;
-                cin.clear(); // Clears the buffer
-            }
-            else {
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // if the user gives 2 values at once just checks for the first buffer
-                break;
-            }
-        }
+        // Our input values.
+        double value1 = getNumber("Enter the first value: ");
+        double value2 = getNumber("Enter the second value: ");
 
+        // Selections
         cout << "What are you wanna do?" << endl
              << "1: Addition" << endl
              << "2: Subtraction" << endl
@@ -104,18 +96,19 @@ int main() {
         int input;
         cin >> input;
 
+        // Checking the input for selection
         switch (input) {
             case Actions::Add:
                 DoMath::Addition(value1,value2);
                 break;
             case Actions::Subtract:
-                DoMath::Addition(value1,value2);
+                DoMath::Subtraction(value1,value2);
                 break;
             case Actions::Multiplicate:
-                DoMath::Addition(value1,value2);
+                DoMath::Multiplication(value1,value2);
                 break;
             case Actions::Divide:
-                DoMath::Addition(value1,value2);
+                DoMath::Division(value1,value2);
                 break;
             case Actions::Exponentiate:
                 DoMath::Exponentiation(value1,value2);
@@ -128,16 +121,21 @@ int main() {
                 break;
         }
 
-        cout << "1: Continue" << endl
-             << "2: Close" << endl
-             << "Select: ";
+        // Getting close input for the program.
         int closeInput;
-        cin >> closeInput;
+        while (true) {
+            cout << "1: Continue" << endl
+                 << "2: Close" << endl;
 
+            closeInput = getNumber("Select: ");
+            // Closing the input if input is 2
+            if (closeInput > 2 or closeInput < 0) {
+                cout << "Enter a valid number!" << endl;
+            } else break;
+        }
         if (closeInput == 2) {
             break;
         }
     }
-
     return 0;
 }
